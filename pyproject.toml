@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "historical-satellite-water-lab"
+version = "0.1.0"
+description = "Bounded historical Sentinel-2 water-change analysis and an offline geospatial viewer."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{name = "Syed Abdul Muqeeth"}]
+dependencies = ["numpy>=2,<3", "rasterio>=1.4.4,<1.5", "pillow>=11,<13"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "pytest-cov>=6,<8", "ruff>=0.9,<1", "build>=1.2,<2"]
+
+[project.scripts]
+satellite-lab = "satellite_monitoring.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+satellite_monitoring = ["resources/provenance/*.json", "resources/source-pins.json", "resources/study/*.tif", "resources/study/*.json", "resources/viewer/*.html", "resources/viewer/*.css", "resources/viewer/*.js", "resources/viewer/*.mjs"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP"]
+
+[tool.coverage.run]
+source = ["satellite_monitoring"]

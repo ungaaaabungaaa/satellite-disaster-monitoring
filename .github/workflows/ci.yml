@@ -1,0 +1,43 @@
+name: Verify historical satellite study
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.12", "3.13"]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+      - name: Install recorded dependencies
+        run: python -m pip install -r requirements-benchmark.txt
+      - name: Install development package
+        run: python -m pip install --no-deps -e .
+      - name: Lint and format
+        run: |
+          python -m ruff check src tests tools
+          python -m ruff format --check src tests tools
+      - name: Python behavior and branch coverage
+        run: python -m pytest --cov=satellite_monitoring --cov-branch --cov-report=term-missing --cov-fail-under=85
+      - name: Browser classification and real recorded study
+        run: node --test tests/viewer.test.mjs tests/recorded-study.test.mjs
+      - name: Build wheel and source distribution
+        run: python -m build --no-isolation
+      - name: Verify installed wheel outside source tree
+        shell: bash
+        run: python tools/check_wheel.py dist/*.whl

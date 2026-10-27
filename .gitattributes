@@ -1,0 +1,5 @@
+# Byte-pinned metadata and source digests must survive Windows checkout unchanged.
+* text=auto eol=lf
+*.tif -text
+*.png -text
+*.gz -text

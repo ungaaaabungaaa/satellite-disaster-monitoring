@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="A reproducible historical Sentinel-2 water-change study on a common clear-sky footprint."
+    />
+    <title>Historical Water Change · Satellite Monitoring</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" type="module"></script>
+  </head>
+  <body>
+    <a class="skip" href="#study">Skip to study</a>
+    <header class="masthead">
+      <a class="brand" href="./"
+        >SATELLITE<span>MONITORING / FIELD NOTES</span></a
+      ><span class="edition">HISTORICAL STUDY <b>001</b></span>
+    </header>
+    <main id="study">
+      <div class="intro">
+        <p class="eyebrow" id="study-location">LOCAL RASTER STUDY</p>
+        <h1>Historical water change.</h1>
+        <p>Compare two acquisitions on the same clear-sky footprint.</p>
+      </div>
+      <div id="status" role="status" aria-live="polite">
+        Loading the local study…
+      </div>
+      <section class="workspace" aria-label="Geospatial study viewer">
+        <div class="map-column">
+          <div class="map-toolbar">
+            <div class="mode-group" aria-label="Image view">
+              <button data-mode="split" aria-pressed="true" disabled>
+                Compare</button
+              ><button data-mode="before" aria-pressed="false" disabled>
+                Before</button
+              ><button data-mode="after" aria-pressed="false" disabled>
+                After</button
+              ><button data-mode="change" aria-pressed="false" disabled>
+                Change
+              </button>
+            </div>
+            <span id="grid-label">20 m grid</span>
+          </div>
+          <div class="map-stage">
+            <canvas
+              id="map"
+              width="600"
+              height="600"
+              role="img"
+              aria-label="Georeferenced historical Sentinel imagery; use controls and the measurement table for equivalent data."
+            ></canvas
+            ><span class="north">GRID N ↑</span
+            ><span class="scale-overlay" id="scale-graphic"></span>
+            <div class="date-labels">
+              <span id="before-date">Before</span
+              ><span id="after-date">After</span>
+            </div>
+          </div>
+          <label class="divider-control"
+            >Comparison divider
+            <input
+              id="divider"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              disabled
+          /></label>
+          <div class="map-footer">
+            <span id="coordinate"
+              >Coordinates: move over the image to inspect a pixel.</span
+            ><span id="scale-label"></span>
+          </div>
+          <div class="legend">
+            <span><i class="persistent"></i>Persistent candidate water</span
+            ><span><i class="gain"></i>Candidate gain</span
+            ><span><i class="loss"></i>Candidate loss</span
+            ><span><i class="excluded"></i>Excluded</span>
+          </div>
+        </div>
+        <aside class="study-panel">
+          <p class="eyebrow">COMMON VALID FOOTPRINT</p>
+          <div class="coverage">
+            <strong id="common-area">—</strong><span>km² compared</span>
+          </div>
+          <p id="coverage-detail">Checking both acquisitions.</p>
+          <label class="field"
+            >MNDWI threshold
+            <select id="threshold" disabled>
+              <option value="-0.1">−0.10</option>
+              <option value="0" selected>0.00</option>
+              <option value="0.1">0.10</option>
+              <option value="0.2">0.20</option>
+              <option value="0.3">0.30</option>
+            </select></label
+          >
+          <p class="hint">
+            A pixel is a candidate water pixel when its index is greater than
+            this threshold.
+          </p>
+          <label class="check"
+            ><input id="quality" type="checkbox" checked disabled />Shade
+            excluded pixels</label
+          >
+          <table>
+            <caption>
+              Measured area · km²
+            </caption>
+            <tbody>
+              <tr>
+                <th scope="row">Before</th>
+                <td id="before-area">—</td>
+              </tr>
+              <tr>
+                <th scope="row">After</th>
+                <td id="after-area">—</td>
+              </tr>
+              <tr>
+                <th scope="row">Candidate gain</th>
+                <td id="gain-area">—</td>
+              </tr>
+              <tr>
+                <th scope="row">Candidate loss</th>
+                <td id="loss-area">—</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="limit">
+            Water-index candidates are not confirmed flood extent. Seasonal
+            water, wet soil, shadows, and mixed pixels can affect this
+            comparison.
+          </p>
+          <div class="downloads">
+            <a href="metrics.json" download>Results JSON ↗</a
+            ><a href="change.tif" download>GeoTIFF · threshold 0.00 ↗</a
+            ><a href="footprint.geojson" download>Footprint GeoJSON ↗</a>
+          </div>
+        </aside>
+      </section>
+      <details class="method">
+        <summary>Method, quality rules, and provenance</summary>
+        <div>
+          <p id="source-ids"></p>
+          <p>
+            Green and short-wave infrared reflectance give MNDWI = (green −
+            SWIR) / (green + SWIR). We compare only pixels valid on both dates.
+            SCL classes 4, 5, and 6 are retained; nodata, cloud, cirrus, shadow,
+            snow, and unclassified pixels are excluded. Area uses the projected
+            grid's pixel area.
+          </p>
+          <p id="processing-description">
+            These original 2020 products have scale 0.0001 and offset 0.
+            Reprojection aligns both dates to one 20 m grid. The base images are
+            actual Sentinel true-color pixels. Coordinates are in the stated UTM
+            grid; the downloaded footprint supplies WGS84 geography.
+          </p>
+          <p id="historical-context">
+            This dry-season/monsoon comparison includes normal seasonal change.
+            <a
+              href="https://science.nasa.gov/earth/earth-observatory/intense-flooding-in-bangladesh-147057/"
+              target="_blank"
+              rel="noreferrer"
+              >NASA's historical account</a
+            >
+            supplies regional context, not labels or accuracy validation for
+            this crop. This is a retrospective analysis, with no live feed or
+            warning function.
+          </p>
+        </div>
+      </details>
+    </main>
+    <footer class="site-footer">
+      <span>Contains modified Copernicus Sentinel data 2020</span
+      ><a
+        href="https://cds.climate.copernicus.eu/licences/ec-sentinel"
+        target="_blank"
+        rel="noreferrer"
+        >Data notice ↗</a
+      ><span>No external map requests or telemetry.</span>
+    </footer>
+  </body>
+</html>
