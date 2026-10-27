@@ -1,0 +1,442 @@
+{
+  "aoi_wgs84": [
+    89.6,
+    25.25,
+    89.8,
+    25.45
+  ],
+  "crs": "EPSG:32645",
+  "transform": [
+    20.0,
+    0.0,
+    761440.0,
+    0.0,
+    -20.0,
+    2817740.0
+  ],
+  "width": 1031,
+  "height": 1129,
+  "resolution_m": 20,
+  "transferred_range_bytes": 27000832,
+  "http_requests": 77,
+  "elapsed_seconds": 322.5959905410127,
+  "scenes": [
+    {
+      "side": "before",
+      "id": "S2B_45RYJ_20200214_0_L2A",
+      "datetime": "2020-02-14T04:51:23.495000Z",
+      "array_sha256": "c7545644efb2f0c263811225b06c90a8b2cd523d48127f7f0b0b98e9bce6d2b7",
+      "sources": {
+        "green": {
+          "url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/45/R/YJ/2020/2/S2B_45RYJ_20200214_0_L2A/B03.tif",
+          "size": 170382638,
+          "etag": "\"1a78d2f3b3d9c3e42a7a59fa87931eac-21\"",
+          "ranges": [
+            {
+              "start": 0,
+              "count": 65536,
+              "sha256": "44bec57485a49f7ab0566b81cd93ccfc6facad5c31e9f8e8afd30468edb761e3"
+            },
+            {
+              "start": 40960000,
+              "count": 393216,
+              "sha256": "e0687b4f7c1f7442934255d5685fbe3cdb839823c7eed9619f6a33734dd5756c"
+            },
+            {
+              "start": 41287680,
+              "count": 393216,
+              "sha256": "c2eec8e79c3201ebd05b3256e0d8dcc81d2da4820d1b3ec563a7b917c9673710"
+            },
+            {
+              "start": 41615360,
+              "count": 327680,
+              "sha256": "8e09d029f0c1fc25bbc69e5235f8ce8f68601e597912c3605c93d27aeb8c3a3e"
+            },
+            {
+              "start": 44171264,
+              "count": 393216,
+              "sha256": "a388165807411fbf73676f5e095953f4ccf9953fd62836bdd994c1de6f4f9db3"
+            },
+            {
+              "start": 44498944,
+              "count": 393216,
+              "sha256": "770172c83e6b43f0e0e69bfb909afe3b04aecd6d043a4d62a187c05eaaeeb2c4"
+            },
+            {
+              "start": 44826624,
+              "count": 327680,
+              "sha256": "37755a9526bbe02bebad37bf71f0e8c28db72a851ffb7da48bb153695740348f"
+            },
+            {
+              "start": 46923776,
+              "count": 327680,
+              "sha256": "57baa952fe945b8a243f45b031ab65a9c0c773fa4e765b6fa694c3e7b9ccae8c"
+            },
+            {
+              "start": 47185920,
+              "count": 262144,
+              "sha256": "2f3d267eca1ca37c1ee9abeb21765f5f521b4ff858c45013a88c3dc1c1b03a2f"
+            },
+            {
+              "start": 47382528,
+              "count": 262144,
+              "sha256": "59085bbf88a5f986a709776ea28af65a503fdb42c588373795bdb5bb762611b6"
+            }
+          ]
+        },
+        "swir16": {
+          "url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/45/R/YJ/2020/2/S2B_45RYJ_20200214_0_L2A/B11.tif",
+          "size": 61044999,
+          "etag": "\"f9481170f2b3c6230f986ea7f7495ec1-8\"",
+          "ranges": [
+            {
+              "start": 0,
+              "count": 65536,
+              "sha256": "7c82ab0621e3262eb10186b3ff7ce975ec2b8a21776baa66cb3050b1ddb1fe4d"
+            },
+            {
+              "start": 54198272,
+              "count": 1114112,
+              "sha256": "046cb3f635357f0b8db4038d32224394362659f054b4a6fdebe782703c1fa8c6"
+            },
+            {
+              "start": 55246848,
+              "count": 589824,
+              "sha256": "54a86093e83ce4c967d1af8a3380cb6b1b4ec2c9ca47fdd5fba4f3f88258989d"
+            },
+            {
+              "start": 55771136,
+              "count": 1114112,
+              "sha256": "c62d23a0059c76bd6a1453cf291c55898f3d02cfc0408c5c669360aa8e57871d"
+            },
+            {
+              "start": 56819712,
+              "count": 589824,
+              "sha256": "2ae5e6d7e62f6346a9bcfe2f79996f9668956fb6202dce39ae9552ca17b5eb2c"
+            },
+            {
+              "start": 59637760,
+              "count": 655360,
+              "sha256": "d1dd128b8cb568be206566a55d29325cfda2b8e9eaf1028150947b8f971d81b1"
+            },
+            {
+              "start": 60227584,
+              "count": 655360,
+              "sha256": "b5eb08451a8eff99f5b32cbcd642fcb5f18cca7f6039531b2f5ed68532e2ddcd"
+            }
+          ]
+        },
+        "scl": {
+          "url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/45/R/YJ/2020/2/S2B_45RYJ_20200214_0_L2A/SCL.tif",
+          "size": 3678333,
+          "etag": "\"15fb2340333b7063e180dcb085e8904d\"",
+          "ranges": [
+            {
+              "start": 0,
+              "count": 65536,
+              "sha256": "81f580611c4322b408115cd3df278acc8e02942e328ba236aebc72ec8f5a06ab"
+            },
+            {
+              "start": 3145728,
+              "count": 65536,
+              "sha256": "6fa9a57988a95edfb8f1b26947e3b7fa1b2189b443fa4ad0babd4e861655da53"
+            },
+            {
+              "start": 3145728,
+              "count": 131072,
+              "sha256": "af891b2f834839848178d4c055651ad1c82cf258b38bd03d88f6d0e0e9985730"
+            },
+            {
+              "start": 3407872,
+              "count": 65536,
+              "sha256": "198088294baae5cee73173c83de35af531d996fbbe75323a552479eb89d41ab0"
+            },
+            {
+              "start": 3407872,
+              "count": 131072,
+              "sha256": "0fe6c1c94dcf2c28a8fc8a1c147b1535aafc0a854ed48d83d000a92e6f26caa3"
+            },
+            {
+              "start": 3604480,
+              "count": 65536,
+              "sha256": "aea9cbb93f09ac67b98d57d0fcd20b0b50d4b8344350a72372624f1647ae2e6c"
+            }
+          ]
+        },
+        "visual": {
+          "url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/45/R/YJ/2020/2/S2B_45RYJ_20200214_0_L2A/TCI.tif",
+          "size": 259051418,
+          "etag": "\"22f28fe45df081584528fde246827d6a-31\"",
+          "ranges": [
+            {
+              "start": 0,
+              "count": 65536,
+              "sha256": "05793f01b2824a683a7a96c4533808fe9f5bc0a8cc37ca53dbfda37f3bda534f"
+            },
+            {
+              "start": 55705600,
+              "count": 524288,
+              "sha256": "7bddfadef5b2df3ad7bd09f01a267703098c8414078632553a64e9d50b9734f4"
+            },
+            {
+              "start": 56164352,
+              "count": 458752,
+              "sha256": "ab8df5a2f152adfb24051edeb43738a139b6acdadec6a10cf8c0c6cfffe0cdec"
+            },
+            {
+              "start": 56557568,
+              "count": 524288,
+              "sha256": "b0e37e7379c99f3c762379f12bc9fee35132dc2e0821c57248e8ef0b6e437078"
+            },
+            {
+              "start": 60096512,
+              "count": 524288,
+              "sha256": "8647c71d8c0f771261a10ccb8fe23d8392d77ce4060205b200f2fee0126c4493"
+            },
+            {
+              "start": 60555264,
+              "count": 458752,
+              "sha256": "c6d62c2be23d96d948ffda48a63f9638ebf9de65efebe716c11b5ee10445067e"
+            },
+            {
+              "start": 60948480,
+              "count": 458752,
+              "sha256": "1cc7c413b5f3d6be4d2f2bd6c4709c370524048fefb11fb43482a2c9fadd77f8"
+            },
+            {
+              "start": 63832064,
+              "count": 393216,
+              "sha256": "a2c4a7db536aabf72dec36bb177ff10af17da87e8cea982e2021045f9a585918"
+            },
+            {
+              "start": 64159744,
+              "count": 327680,
+              "sha256": "ab1dff9282fb8944c4f4ec096e5e2950ba5bd8a772ecd7507ae2de22c42d35c5"
+            },
+            {
+              "start": 64421888,
+              "count": 393216,
+              "sha256": "bad9876878719688646703983dfff720913509795c51d01d92e93056835624a7"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "side": "after",
+      "id": "S2B_45RYJ_20200802_0_L2A",
+      "datetime": "2020-08-02T04:51:30.972000Z",
+      "array_sha256": "d62fc9ef77f0023afd6e466baf1da673722600631923783f543df7c2e9e8a4c5",
+      "sources": {
+        "green": {
+          "url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/45/R/YJ/2020/8/S2B_45RYJ_20200802_0_L2A/B03.tif",
+          "size": 213702963,
+          "etag": "\"91f79547080f74818ec77f4141d1b889-26\"",
+          "ranges": [
+            {
+              "start": 0,
+              "count": 65536,
+              "sha256": "2ccee649c1cfb63d84a733ddab71893b7ee7431a765ac973c44b91f716911a11"
+            },
+            {
+              "start": 49545216,
+              "count": 458752,
+              "sha256": "dd8320d25a1c96e51145620ee7fc738db0f6c68ee2e0e8b083473da874e63040"
+            },
+            {
+              "start": 49938432,
+              "count": 393216,
+              "sha256": "537d604c4659f56aa9949d345c512224f79053db51072fc7c07f4d07b9a1efd7"
+            },
+            {
+              "start": 50266112,
+              "count": 458752,
+              "sha256": "e9daa34a24fdb2f27aa7571a83941d4025f09ce86357bac21af2e2728442a896"
+            },
+            {
+              "start": 53542912,
+              "count": 393216,
+              "sha256": "e788db2ee30128144b1ba714cf05976a59dfb30decf45eb643df776228077893"
+            },
+            {
+              "start": 53870592,
+              "count": 458752,
+              "sha256": "adc40fea2a7b6274fe2a4bcb25473b934a69e25a9618b9f4ae10449ac30d0be5"
+            },
+            {
+              "start": 54263808,
+              "count": 458752,
+              "sha256": "8b693d4bdb33a245196bdef95c3f3132cfbb0a45ad65a968e3c6761ab8a09f60"
+            },
+            {
+              "start": 56885248,
+              "count": 327680,
+              "sha256": "341ecdc946af1fa1d1f03c0ec6b8e85f989cf5059a7809e19eac326c0d760159"
+            },
+            {
+              "start": 57147392,
+              "count": 327680,
+              "sha256": "9234c8ffe964e587a033fe0715091a341dca4d550a547b56b2d79790b9f60019"
+            },
+            {
+              "start": 57409536,
+              "count": 327680,
+              "sha256": "fc35eecab9e5f72d5c06e0ca9bf2cec8e25ace15adbf478baa52da13ae7fd77a"
+            }
+          ]
+        },
+        "swir16": {
+          "url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/45/R/YJ/2020/8/S2B_45RYJ_20200802_0_L2A/B11.tif",
+          "size": 61751427,
+          "etag": "\"4c02905524e5e051e27300cfc67609b9-8\"",
+          "ranges": [
+            {
+              "start": 0,
+              "count": 65536,
+              "sha256": "b512a88ef7a3d0934284dc7e9524fad245fd0f578e4a04160bfaf02f88d6efbc"
+            },
+            {
+              "start": 54853632,
+              "count": 1114112,
+              "sha256": "0a6bffbd52c12ebb583a4b84f4eb23b403251a53af830b156fc3c3cc9668c672"
+            },
+            {
+              "start": 55902208,
+              "count": 589824,
+              "sha256": "e9eddee66fa94a61ce04a916e57ccf213af37293a8a2b2aa080ec66bd14fe86b"
+            },
+            {
+              "start": 56426496,
+              "count": 1114112,
+              "sha256": "6f5182b54f0493ef94f22712b01bc03069ad0201aab17308561c1ebc224e82ea"
+            },
+            {
+              "start": 57475072,
+              "count": 655360,
+              "sha256": "8f874df39c4e02b8d9aae357cac015c3e963579dc9aa9bb80de1c37ae75e7d72"
+            },
+            {
+              "start": 60358656,
+              "count": 655360,
+              "sha256": "7b15b2fc029503f14b27a64d39a8cd0513a105903ddafcbd81acdd8b3db01bd9"
+            },
+            {
+              "start": 60948480,
+              "count": 589824,
+              "sha256": "408fbbbc0a522fa71fe7696c7e19f06245161985cc3dc040c8f8a07fc225dc31"
+            }
+          ]
+        },
+        "scl": {
+          "url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/45/R/YJ/2020/8/S2B_45RYJ_20200802_0_L2A/SCL.tif",
+          "size": 7259571,
+          "etag": "\"55da0ae14856dbc1ef7e1c9943794e01\"",
+          "ranges": [
+            {
+              "start": 0,
+              "count": 65536,
+              "sha256": "b41dbacf4f46c551385508e78b249944f83fc2ac37b37a37c3034ad1bcc030a4"
+            },
+            {
+              "start": 6225920,
+              "count": 65536,
+              "sha256": "ed6038031a5775c787de1c2194f8a48e62326790c9d7a73b209176f9343f8ee5"
+            },
+            {
+              "start": 6225920,
+              "count": 131072,
+              "sha256": "789d3fa8d9a919f6c8f23d6ed86d306ffab3069aa9a56f929604c2885d3d5e62"
+            },
+            {
+              "start": 6291456,
+              "count": 131072,
+              "sha256": "fce6f62e774b9026b1993fb59b610db31357ccec08a87d3907e164af6c8ac1ae"
+            },
+            {
+              "start": 6684672,
+              "count": 65536,
+              "sha256": "c2f94a04fdfd529126551c635953f7ab5f59f42a35696168e0b141366c8e2839"
+            },
+            {
+              "start": 6684672,
+              "count": 131072,
+              "sha256": "271904ee7b79c1c39031761ce827539d5e979c964eeeb6646ea1ef5600f08b1a"
+            },
+            {
+              "start": 6750208,
+              "count": 131072,
+              "sha256": "1e9dfc261df10c7172338159ea61d09593e458ea56a46deb3579a58184ee4351"
+            },
+            {
+              "start": 7077888,
+              "count": 65536,
+              "sha256": "755a3309007fbb4d4d517c43f73ae04fd236331f8f50e36dccb0855cd28258c7"
+            },
+            {
+              "start": 7077888,
+              "count": 131072,
+              "sha256": "bcaa5505cff2a3f1070074351a4838f3b263e14096ae86215dbba88a3c4fd2b3"
+            }
+          ]
+        },
+        "visual": {
+          "url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/45/R/YJ/2020/8/S2B_45RYJ_20200802_0_L2A/TCI.tif",
+          "size": 279372086,
+          "etag": "\"e2a6e02d223a82c4bc69164ec2347fc1-34\"",
+          "ranges": [
+            {
+              "start": 0,
+              "count": 65536,
+              "sha256": "b3bac471c5c38d5b2d874205f8e73012822053d350b294da3669140df5e1b421"
+            },
+            {
+              "start": 62390272,
+              "count": 589824,
+              "sha256": "5372837c987dff1b26d8b915cddbbf0a276ad1896f72ce5537c3247961d49808"
+            },
+            {
+              "start": 62914560,
+              "count": 655360,
+              "sha256": "1e114f4d91a11cbbdf5ff0fa70fafa0f15de7226c9d2b94201cf5f255cb77b8f"
+            },
+            {
+              "start": 63504384,
+              "count": 589824,
+              "sha256": "4551cc78a48223fb6eb2354124a4141cefd2382ed4fa26e0d3f069edba30b442"
+            },
+            {
+              "start": 67960832,
+              "count": 589824,
+              "sha256": "dfc5d1e76666ae64a170746ee478352e054d706347bccb30d9976fef6390dc96"
+            },
+            {
+              "start": 68485120,
+              "count": 655360,
+              "sha256": "7c6420d3e4c0e88a9e27ce5c41075524946c595c017a6337c288bf7eb456c819"
+            },
+            {
+              "start": 69074944,
+              "count": 589824,
+              "sha256": "53246230be5d6cd9c075ee7eeb938538d29104650cf7bccd065c8cf2fb039855"
+            },
+            {
+              "start": 72744960,
+              "count": 393216,
+              "sha256": "02223dda892edcba7ebcfa21fcb4e17ab2b95b62e25af4ab404fbfa3d5ce854e"
+            },
+            {
+              "start": 73072640,
+              "count": 458752,
+              "sha256": "6d68477a49b627ac1a80496c4076f9f00fa1f0e2a3d21b5135923553532537b9"
+            },
+            {
+              "start": 73465856,
+              "count": 458752,
+              "sha256": "cd25de4de6a4a8a0b1bbea51531cb29033170faafa50aff9049a28aab35a97f8"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
