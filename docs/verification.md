@@ -19,6 +19,8 @@ The refreshed `demo/metrics.json` records current Python-source SHA256:
 
 The digest was independently recomputed from sorted package Python module filenames and contents and matched the report. Both effective reflectance scales are 0.0001 and both offsets are 0. The default output has **427,550 common-valid pixels**, **259,207 candidate-gain pixels**, and **7,262 candidate-loss pixels**. These measurements are not flood ground truth.
 
+Initial Windows CI correctly rejected changed pinned metadata bytes: Git's automatic CRLF checkout changed the original JSON line endings. Repository attributes now keep text in LF form and leave TIFF, PNG, and gzip files binary. A separate checkout with `core.autocrlf=true` verified the exact metadata and source digests. The checksum validation remains strict; no algorithm or data pin was changed.
+
 ## Package integration
 
 `python -m build --no-isolation` builds a source distribution and wheel. `python tools/check_wheel.py dist/*.whl` then installs the wheel with no index or dependency resolution into a fresh temporary target. A subprocess starts outside the source tree, asserts the imported package resolves inside that target, and runs:
