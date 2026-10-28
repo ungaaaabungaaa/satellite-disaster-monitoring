@@ -55,6 +55,12 @@ class ExportTests(unittest.TestCase):
             fixture(b, date="2020-08-02T04:51:30Z")
             result = export_study(a, b, root / "out")
             self.assertEqual(result["thresholds"][1]["common_valid_pixels"], 16)
+            self.assertEqual(
+                result["input_grid_diagnostics"]["origin_offset_reference_pixels"], [0.0, 0.0]
+            )
+            self.assertEqual(
+                result["input_grid_diagnostics"]["reference_grid_overlap_fraction"], 1.0
+            )
             self.assertEqual(result["thresholds"][1]["persistent_water_pixels"], 16)
             self.assertEqual(result["thresholds"][1]["gain_km2"], 0)
             self.assertEqual(result["thresholds"][1]["pixel_area_m2"], 400)

@@ -14,7 +14,7 @@ from PIL import Image
 from . import __version__
 from .acquire import RESOURCE_DIR, array_digest, load_items
 from .analysis import analyze_arrays, pixel_area
-from .scene import align_scene, load_scene
+from .scene import align_scene, grid_diagnostics, load_scene
 
 THRESHOLDS = [-0.1, 0.0, 0.1, 0.2, 0.3]
 
@@ -108,6 +108,7 @@ def export_study(before_path: Path, after_path: Path, output: Path):
         "width": w,
         "height": h,
         "after_aligned_to_before": changed,
+        "input_grid_diagnostics": grid_diagnostics(after, before),
         "effective_reflectance": {
             side: {"scale": scene.scale, "offset": scene.offset}
             for side, scene in [("before", before), ("after", after)]
