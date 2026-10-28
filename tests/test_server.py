@@ -16,6 +16,7 @@ class ServerTests(unittest.TestCase):
             (root / "site").mkdir()
             site = root / "site"
             (site / "index.html").write_text("<main>Exported study</main>")
+            (site / "threshold-sensitivity.tif").write_bytes(b"sensitivity fixture")
             (root / "private.txt").write_text("must not be served")
             with make_server(site, 0) as server:
                 thread = Thread(target=server.serve_forever, daemon=True)
@@ -28,6 +29,8 @@ class ServerTests(unittest.TestCase):
                         self.assertIn(
                             "default-src 'self'", response.headers["Content-Security-Policy"]
                         )
+                    with urlopen(base + "/threshold-sensitivity.tif", timeout=5) as response:
+                        self.assertEqual(response.read(), b"sensitivity fixture")
                     for path in [
                         "/../private.txt",
                         "/private.txt",

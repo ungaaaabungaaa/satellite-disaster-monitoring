@@ -17,6 +17,7 @@ FILES = {
     "before.f32.gz",
     "after.f32.gz",
     "change.tif",
+    "threshold-sensitivity.tif",
     "change.png",
     "footprint.geojson",
 }

@@ -67,6 +67,40 @@ class ExportTests(unittest.TestCase):
             with self.assertRaises(FileExistsError):
                 export_study(a, b, root / "out")
 
+    def test_threshold_sensitivity_map_uses_only_common_valid_pixels(self):
+        import rasterio
+
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            a, b = root / "a.tif", root / "b.tif"
+            fixture(a)
+            fixture(b, date="2020-08-02T04:51:30Z")
+            for path in [a, b]:
+                with rasterio.open(path, "r+") as dst:
+                    data = dst.read()
+                    data[0], data[1] = 8000, 2000
+                    data[0, 0, 0], data[1, 0, 0] = 6000, 4000
+                    data[2, 0, 1] = 9
+                    dst.write(data)
+            result = export_study(a, b, root / "out")
+            sensitivity = result["threshold_sensitivity"]
+            self.assertEqual(sensitivity["thresholds"], [-0.1, 0.0, 0.1, 0.2, 0.3])
+            self.assertEqual(sensitivity["common_valid_pixels"], 15)
+            self.assertEqual(sensitivity["sensitive_pixels"], 1)
+            self.assertEqual(sensitivity["stable_pixels"], 14)
+            self.assertEqual(sensitivity["sensitive_km2"], 0.0004)
+            self.assertEqual(sensitivity["sensitive_fraction"], 1 / 15)
+            with rasterio.open(root / "out" / "threshold-sensitivity.tif") as src:
+                classes = src.read(1)
+                self.assertEqual(classes[0, 0], 2)
+                self.assertEqual(classes[0, 1], 0)
+                self.assertEqual((classes == 1).sum(), 14)
+                self.assertEqual(src.nodata, 0)
+                self.assertEqual(src.crs.to_epsg(), 32645)
+                self.assertEqual(src.transform, load_scene(a).transform)
+            manifest = json.loads((root / "out" / "data.json").read_text())
+            self.assertIn("threshold-sensitivity.tif", manifest["asset_sha256"])
+
     def test_reversed_acquisition_dates_fail_before_output(self):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)

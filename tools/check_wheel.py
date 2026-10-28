@@ -77,7 +77,7 @@ with make_server(report, 0) as server:
     thread.start()
     try:
         base = f"http://127.0.0.1:{server.server_port}"
-        for filename in ["index.html", "app.js", "classification.mjs", "before.f32.gz", "change.tif"]:
+        for filename in ["index.html", "app.js", "classification.mjs", "before.f32.gz", "change.tif", "threshold-sensitivity.tif"]:
             with urlopen(base + "/" + filename, timeout=5) as response:
                 assert response.status == 200
                 assert response.read()
