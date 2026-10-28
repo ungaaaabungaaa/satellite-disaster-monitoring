@@ -4,7 +4,7 @@ from pathlib import Path
 
 import numpy as np
 
-from satellite_monitoring.scene import align_scene, load_scene
+from satellite_monitoring.scene import align_scene, grid_diagnostics, load_scene
 
 
 def fixture(path, transform=None, crs="EPSG:32645", date="2020-02-14T04:51:23Z"):
@@ -56,6 +56,38 @@ class SceneTests(unittest.TestCase):
             self.assertTrue(changed)
             self.assertTrue((aligned[:, :, 0] == 0).all())
             self.assertTrue((aligned[2, :, 1:] == 5).all())
+
+    def test_grid_diagnostics_measure_known_offsets_and_geometric_overlap(self):
+        from dataclasses import replace
+
+        from rasterio.crs import CRS
+        from rasterio.transform import from_origin
+
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / "scene.tif"
+            fixture(path)
+            reference = load_scene(path)
+            exact = grid_diagnostics(reference, reference)
+            self.assertTrue(exact["same_grid"])
+            self.assertEqual(exact["origin_offset_reference_pixels"], [0.0, 0.0])
+            self.assertEqual(exact["reference_grid_overlap_fraction"], 1)
+            for meters, pixels, overlap in [(20, 1, 0.75), (10, 0.5, 0.875), (100, 5, 0)]:
+                shifted = replace(
+                    reference, transform=from_origin(760000 + meters, 2810000, 20, 20)
+                )
+                report = grid_diagnostics(shifted, reference)
+                self.assertFalse(report["same_grid"])
+                self.assertEqual(report["origin_offset_reference_pixels"], [pixels, 0.0])
+                self.assertEqual(report["pixel_size_ratio"], [1.0, 1.0])
+                self.assertEqual(report["reference_grid_overlap_fraction"], overlap)
+            coarse = replace(reference, transform=from_origin(760000, 2810000, 40, 40))
+            self.assertEqual(grid_diagnostics(coarse, reference)["pixel_size_ratio"], [2.0, 2.0])
+            other_crs = replace(reference, crs=CRS.from_epsg(32644))
+            report = grid_diagnostics(other_crs, reference)
+            self.assertFalse(report["same_crs"])
+            self.assertIsNone(report["origin_offset_reference_pixels"])
+            self.assertIsNone(report["reference_grid_overlap_fraction"])
+            self.assertIn("not image coregistration", report["interpretation"])
 
     def test_geographic_area_and_naive_time_are_rejected(self):
         from rasterio.transform import from_origin

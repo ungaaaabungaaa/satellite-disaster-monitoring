@@ -94,3 +94,7 @@ Code is [MIT licensed](LICENSE). Satellite imagery has separate Copernicus terms
 ## Locate threshold-sensitive pixels
 
 New `demo` and `analyze` exports include `threshold-sensitivity.tif` on the same projected grid. Class 0 is excluded, class 1 keeps the same change classification at all five tested MNDWI thresholds, and class 2 changes classification for at least one threshold. The `threshold_sensitivity` entry in `metrics.json` records the exact tested thresholds, sensitive area, count, and fraction of the common valid footprint. The file hash is included in `data.json`. This describes sensitivity to those thresholds only; it is not a confidence interval, registration check, or flood-accuracy measurement. The default `change.tif` remains at threshold 0.00.
+
+## Inspect input-grid alignment
+
+New exports record `input_grid_diagnostics` in `metrics.json` before resampling: matching CRS/grid flags, origin displacement in reference pixels (columns, rows), pixel-size ratios, and geometric overlap as a fraction of the full reference grid. Offsets and overlap are null for different CRSs. This can identify shifted origins or resolution changes; it does **not** measure image coregistration accuracy. Geometric overlap includes cloudy and otherwise excluded cells and is separate from the common-valid analysis footprint. No water-classification thresholds, masks, or source pins change.

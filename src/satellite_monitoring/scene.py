@@ -108,3 +108,41 @@ def align_scene(scene: Scene, reference: Scene):
             warp_mem_limit=32,
         )
     return aligned, True
+
+
+def grid_diagnostics(scene: Scene, reference: Scene):
+    """Describe validated input grids before resampling, without image matching."""
+    same_crs = scene.crs == reference.crs
+    report = {
+        "same_crs": same_crs,
+        "same_grid": same_crs
+        and scene.transform == reference.transform
+        and scene.data.shape == reference.data.shape,
+        "origin_offset_reference_pixels": None,
+        "pixel_size_ratio": None,
+        "reference_grid_overlap_fraction": None,
+        "interpretation": "Geometric grid comparison only; not image coregistration or a cloud-valid overlap measurement. Different CRS requires explicit coordinate transformation, so offsets and overlap are not reported.",
+    }
+    if not same_crs:
+        return report
+    source, target = scene.transform, reference.transform
+    report["origin_offset_reference_pixels"] = [
+        (source.c - target.c) / target.a,
+        (source.f - target.f) / target.e,
+    ]
+    report["pixel_size_ratio"] = [source.a / target.a, source.e / target.e]
+    source_height, source_width = scene.data.shape[1:]
+    target_height, target_width = reference.data.shape[1:]
+    width = max(
+        0,
+        min(source.c + source_width * source.a, target.c + target_width * target.a)
+        - max(source.c, target.c),
+    )
+    height = max(
+        0,
+        min(source.f, target.f)
+        - max(source.f + source_height * source.e, target.f + target_height * target.e),
+    )
+    reference_area = target_width * target.a * target_height * -target.e
+    report["reference_grid_overlap_fraction"] = min(1.0, width * height / reference_area)
+    return report
