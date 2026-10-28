@@ -44,9 +44,15 @@ def export_study(before_path: Path, after_path: Path, output: Path):
         aligned[2],
     ]
     results = []
+    reference_classes = None
+    sensitive = np.zeros(before.data.shape[1:], dtype=bool)
     for threshold in THRESHOLDS:
         result, classes, old_index, new_index = analyze_arrays(*args, area, threshold)
         results.append(result)
+        if reference_classes is None:
+            reference_classes = classes.copy()
+        else:
+            sensitive |= classes != reference_classes
         if threshold == 0:
             default_classes = classes
     h, w = old_index.shape
@@ -108,6 +114,15 @@ def export_study(before_path: Path, after_path: Path, output: Path):
         },
         "quality_rule": "Both dates: finite positive optical reflectance and SCL4/5/6 only",
         "thresholds": results,
+        "threshold_sensitivity": {
+            "thresholds": THRESHOLDS,
+            "rule": "Class changes across tested thresholds on the common valid footprint",
+            "common_valid_pixels": results[0]["common_valid_pixels"],
+            "sensitive_pixels": int(sensitive.sum()),
+            "stable_pixels": results[0]["common_valid_pixels"] - int(sensitive.sum()),
+            "sensitive_km2": int(sensitive.sum()) * area / 1_000_000,
+            "sensitive_fraction": int(sensitive.sum()) / results[0]["common_valid_pixels"],
+        },
         "interpretation": "Candidate water change on the common valid footprint; no flood ground truth.",
     }
     output.mkdir(parents=True, exist_ok=False)
@@ -133,6 +148,27 @@ def export_study(before_path: Path, after_path: Path, output: Path):
         dst.write(default_classes, 1)
         dst.update_tags(
             threshold="0", classes="0 excluded;1 stable land;2 persistent water;3 gain;4 loss"
+        )
+    sensitivity_classes = np.where(default_classes == 0, 0, np.where(sensitive, 2, 1)).astype(
+        "uint8"
+    )
+    with rasterio.open(
+        output / "threshold-sensitivity.tif",
+        "w",
+        driver="GTiff",
+        width=w,
+        height=h,
+        count=1,
+        dtype="uint8",
+        crs=before.crs,
+        transform=before.transform,
+        nodata=0,
+        compress="deflate",
+    ) as dst:
+        dst.write(sensitivity_classes, 1)
+        dst.update_tags(
+            thresholds=json.dumps(THRESHOLDS),
+            classes="0 excluded;1 stable classification;2 classification changes with threshold",
         )
     palette = np.array(
         [[224, 227, 225], [226, 223, 212], [57, 94, 118], [28, 160, 168], [189, 124, 61]],
